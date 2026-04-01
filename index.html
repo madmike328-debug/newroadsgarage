@@ -6,144 +6,122 @@
 <title>New Roads Garage – Ann Arbor's Trusted Auto Repair</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0A0A0A; --surface: #141414; --card: #1A1A1A; --border: #272727;
-    --gold: #E8A020; --text: #F0EDE6; --muted: #888880; --faint: #444440; --radius: 4px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 400; line-height: 1.6; overflow-x: hidden; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 999; background: rgba(10,10,10,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 68px; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-  .logo-icon { width: 36px; height: 36px; background: var(--gold); border-radius: 2px; display: flex; align-items: center; justify-content: center; }
-  .logo-icon svg { width: 22px; height: 22px; fill: #0A0A0A; }
-  .logo-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text); line-height: 1.1; }
-  .logo-sub { font-size: 0.58rem; font-weight: 400; color: var(--muted); letter-spacing: 0.12em; display: block; text-transform: uppercase; }
-  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
-  .nav-links a:hover, .nav-links a.active { color: var(--text); }
-  .nav-cta { background: var(--gold) !important; color: #0A0A0A !important; padding: 0.45rem 1.1rem !important; border-radius: var(--radius) !important; font-weight: 700 !important; }
-  .nav-cta:hover { background: #f0b030 !important; }
-  .page { display: none; padding-top: 68px; min-height: 100vh; }
-  .page.active { display: block; }
-</style>
-  .hero { position: relative; min-height: calc(100vh - 68px); display: flex; align-items: center; overflow: hidden; }
-  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,160,32,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 20% 80%, rgba(217,62,42,0.04) 0%, transparent 60%), linear-gradient(135deg, #0A0A0A 0%, #111108 100%); }
-  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
-  .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; width: 100%; }
-  .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
-  .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 2px; background: var(--gold); }
-  .hero-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 0.95; text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 1.5rem; }
-  .hero-title span { color: var(--gold); }
-  .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 480px; margin-bottom: 2.5rem; line-height: 1.7; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
-  .btn-primary { background: var(--gold); color: #0A0A0A; border: none; padding: 0.9rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius); cursor: pointer; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 0.5rem; }
-  .btn-primary:hover { background: #f0b030; transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 0.9rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius); cursor: pointer; transition: border-color 0.2s, color 0.2s; display: inline-flex; align-items: center; }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-  .hero-badges { display: flex; gap: 2rem; flex-wrap: wrap; }
-  .hero-badge { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; color: var(--muted); }
-  .hero-badge .dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
-  .trust-bar { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.2rem 2.5rem; overflow-x: auto; }
-  .trust-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 2.5rem; align-items: center; justify-content: space-between; white-space: nowrap; }
-  .trust-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-  .trust-item .chk { color: var(--gold); font-weight: 700; }
-  .section { max-width: 1200px; margin: 0 auto; padding: 6rem 2.5rem; }
-  .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
-  .section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--gold); }
-  .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.05; margin-bottom: 1rem; }
-  .section-sub { color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.7; margin-bottom: 3rem; }
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .service-card { background: var(--card); padding: 2rem; transition: background 0.2s; cursor: pointer; }
-  .service-card:hover { background: #222218; }
-  .service-icon { width: 44px; height: 44px; background: rgba(232,160,32,0.1); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; font-size: 1.3rem; }
-  .service-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
-  .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
-  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-  .why-list { list-style: none; }
-  .why-item { display: flex; gap: 1.25rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
-  .why-item:first-child { padding-top: 0; }
-  .why-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 900; color: rgba(232,160,32,0.15); line-height: 1; min-width: 50px; }
-  .why-text h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.3rem; }
-  .why-text p { font-size: 0.88rem; color: var(--muted); }
-  .why-visual { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
-  .stat-block { display: flex; flex-direction: column; gap: 0.3rem; }
-  .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 3.5rem; font-weight: 900; color: var(--gold); line-height: 1; }
-  .stat-label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-  .stat-divider { height: 1px; background: var(--border); }
-  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-  .review-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: border-color 0.2s; }
-  .review-card:hover { border-color: var(--faint); }
-  .review-stars { display: flex; gap: 3px; margin-bottom: 1rem; color: var(--gold); font-size: 0.9rem; }
-  .review-text { font-size: 0.92rem; line-height: 1.7; color: var(--text); margin-bottom: 1.25rem; }
-  .review-author { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-  .cta-banner { background: var(--gold); padding: 4rem 2.5rem; }
-  .cta-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-  .cta-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 3vw, 2.5rem); text-transform: uppercase; color: #0A0A0A; line-height: 1.1; }
-  .btn-dark { background: #0A0A0A; color: var(--gold); border: none; padding: 0.9rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius); cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-  .btn-dark:hover { background: #1c1c1c; }
-  .services-full-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-  .service-full-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: border-color 0.2s, transform 0.2s; }
-  .service-full-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .about-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-  .creds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .cred-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; text-align: center; }
-  .cred-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
-  .cred-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; color: var(--gold); }
-  .cred-sub { font-size: 0.8rem; color: var(--muted); }
-  .amenity-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
-  .amenity-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--muted); }
-  .amenity-item::before { content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.9rem; }
-  .booking-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .form-group { margin-bottom: 1.25rem; }
-  .form-group label { display: block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-  .form-group input, .form-group select, .form-group textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 0.8rem 1rem; font-family: 'Barlow', sans-serif; font-size: 0.95rem; border-radius: var(--radius); outline: none; transition: border-color 0.2s; appearance: none; }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
-  .form-group textarea { min-height: 100px; resize: vertical; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .info-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; position: sticky; top: 90px; }
-  .info-item { display: flex; gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
-  .info-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .info-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
-  .map-placeholder { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); height: 280px; overflow: hidden; }
-  .map-placeholder iframe { width: 100%; height: 100%; border: none; }
-  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 2.5rem; }
-  .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
-  .footer-brand p { font-size: 0.88rem; color: var(--muted); margin-top: 0.75rem; max-width: 240px; line-height: 1.7; }
-  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
-  .footer-col a { display: block; color: var(--text); text-decoration: none; font-size: 0.88rem; margin-bottom: 0.5rem; cursor: pointer; transition: color 0.2s; }
-  .footer-col a:hover { color: var(--gold); }
-  .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; gap: 1rem; }
-  .rp-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.2); border-radius: 2px; padding: 0.3rem 0.8rem; font-size: 0.75rem; font-weight: 600; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1rem; }
-  .success-msg { display: none; background: rgba(232,160,32,0.1); border: 1px solid var(--gold); border-radius: var(--radius); padding: 1rem 1.5rem; color: var(--gold); font-size: 0.95rem; margin-top: 1rem; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-  .page.active .hero-eyebrow { animation: fadeUp 0.55s 0.05s ease both; }
-  .page.active .hero-title { animation: fadeUp 0.55s 0.15s ease both; }
-  .page.active .hero-sub { animation: fadeUp 0.55s 0.25s ease both; }
-  .page.active .hero-actions { animation: fadeUp 0.55s 0.35s ease both; }
-  .page.active .hero-badges { animation: fadeUp 0.55s 0.45s ease both; }
-  @media (max-width: 900px) {
-    nav { padding: 0 1.5rem; }
-    .nav-links { gap: 1.25rem; }
-    .why-grid, .about-hero-inner, .booking-layout, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
-    .section { padding: 4rem 1.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 600px) {
-    .nav-links { display: none; }
-    .hero-title { font-size: 3rem; }
-    .footer-inner { grid-template-columns: 1fr; }
-  }
+  :root{--bg:#0A0A0A;--surface:#141414;--card:#1A1A1A;--border:#272727;--gold:#E8A020;--text:#F0EDE6;--muted:#888880;--faint:#444440;--radius:4px;}
+  *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(10,10,10,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;}
+  .nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+  .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:2px;display:flex;align-items:center;justify-content:center;}
+  .logo-icon svg{width:22px;height:22px;fill:#0A0A0A;}
+  .logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:0.04em;text-transform:uppercase;color:var(--text);line-height:1.1;}
+  .logo-sub{font-size:0.58rem;color:var(--muted);letter-spacing:0.12em;display:block;text-transform:uppercase;}
+  .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;cursor:pointer;}
+  .nav-links a:hover,.nav-links a.active{color:var(--text);}
+  .nav-cta{background:var(--gold)!important;color:#0A0A0A!important;padding:0.45rem 1.1rem!important;border-radius:var(--radius)!important;font-weight:700!important;}
+  .page{display:none;padding-top:68px;min-height:100vh;}.page.active{display:block;}
+  .hero{position:relative;min-height:calc(100vh - 68px);display:flex;align-items:center;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(232,160,32,0.07) 0%,transparent 70%),linear-gradient(135deg,#0A0A0A 0%,#111108 100%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);}
+  .hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 2.5rem;width:100%;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.78rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+  .hero-eyebrow::before{content:'';display:block;width:28px;height:2px;background:var(--gold);}
+  .hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,7vw,6.5rem);line-height:0.95;text-transform:uppercase;margin-bottom:1.5rem;}
+  .hero-title span{color:var(--gold);}
+  .hero-sub{font-size:1.05rem;color:var(--muted);max-width:480px;margin-bottom:2.5rem;line-height:1.7;}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;}
+  .btn-primary{background:var(--gold);color:#0A0A0A;border:none;padding:0.9rem 2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius);cursor:pointer;transition:background 0.2s,transform 0.15s;display:inline-flex;align-items:center;gap:0.5rem;}
+  .btn-primary:hover{background:#f0b030;transform:translateY(-1px);}
+  .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:0.9rem 2rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius);cursor:pointer;transition:border-color 0.2s,color 0.2s;display:inline-flex;align-items:center;}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+  .hero-badges{display:flex;gap:2rem;flex-wrap:wrap;}
+  .hero-badge{display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;color:var(--muted);}
+  .hero-badge .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+  .trust-bar{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.2rem 2.5rem;overflow-x:auto;}
+  .trust-inner{max-width:1200px;margin:0 auto;display:flex;gap:2.5rem;align-items:center;justify-content:space-between;white-space:nowrap;}
+  .trust-item{display:flex;align-items:center;gap:0.6rem;font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);}
+  .trust-item .chk{color:var(--gold);font-weight:700;}
+  .section{max-width:1200px;margin:0 auto;padding:6rem 2.5rem;}
+  .section-label{font-size:0.75rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.6rem;}
+  .section-label::before{content:'';display:block;width:20px;height:2px;background:var(--gold);}
+  .section-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(2rem,4vw,3rem);text-transform:uppercase;letter-spacing:0.02em;line-height:1.05;margin-bottom:1rem;}
+  .section-sub{color:var(--muted);font-size:1rem;max-width:560px;line-height:1.7;margin-bottom:3rem;}
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .service-card{background:var(--card);padding:2rem;transition:background 0.2s;cursor:pointer;}
+  .service-card:hover{background:#222218;}
+  .service-icon{width:44px;height:44px;background:rgba(232,160,32,0.1);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-size:1.3rem;}
+  .service-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.15rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;}
+  .service-desc{font-size:0.88rem;color:var(--muted);line-height:1.6;}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .why-list{list-style:none;}
+  .why-item{display:flex;gap:1.25rem;padding:1.5rem 0;border-bottom:1px solid var(--border);}
+  .why-item:first-child{padding-top:0;}
+  .why-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:rgba(232,160,32,0.15);line-height:1;min-width:50px;}
+  .why-text h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.3rem;}
+  .why-text p{font-size:0.88rem;color:var(--muted);}
+  .why-visual{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;display:flex;flex-direction:column;gap:1.5rem;}
+  .stat-block{display:flex;flex-direction:column;gap:0.3rem;}
+  .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:var(--gold);line-height:1;}
+  .stat-label{font-size:0.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;}
+  .stat-divider{height:1px;background:var(--border);}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+  .review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;transition:border-color 0.2s;}
+  .review-card:hover{border-color:var(--faint);}
+  .review-stars{display:flex;gap:3px;margin-bottom:1rem;color:var(--gold);font-size:0.9rem;}
+  .review-text{font-size:0.92rem;line-height:1.7;color:var(--text);margin-bottom:1.25rem;}
+  .review-author{font-size:0.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+  .cta-banner{background:var(--gold);padding:4rem 2.5rem;}
+  .cta-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+  .cta-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.8rem,3vw,2.5rem);text-transform:uppercase;color:#0A0A0A;line-height:1.1;}
+  .btn-dark{background:#0A0A0A;color:var(--gold);border:none;padding:0.9rem 2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:var(--radius);cursor:pointer;transition:background 0.2s;white-space:nowrap;}
+  .btn-dark:hover{background:#1c1c1c;}
+  .services-full-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+  .service-full-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;transition:border-color 0.2s,transform 0.2s;}
+  .service-full-card:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .about-hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .creds-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .cred-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;}
+  .cred-icon{font-size:1.8rem;margin-bottom:0.5rem;}
+  .cred-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;color:var(--gold);}
+  .cred-sub{font-size:0.8rem;color:var(--muted);}
+  .amenity-list{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.5rem;}
+  .amenity-item{display:flex;align-items:center;gap:0.6rem;font-size:0.88rem;color:var(--muted);}
+  .amenity-item::before{content:'✓';color:var(--gold);font-weight:700;font-size:0.9rem;}
+  .booking-layout,.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+  .form-group{margin-bottom:1.25rem;}
+  .form-group label{display:block;font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+  .form-group input,.form-group select,.form-group textarea{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:0.8rem 1rem;font-family:'Barlow',sans-serif;font-size:0.95rem;border-radius:var(--radius);outline:none;transition:border-color 0.2s;appearance:none;}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);}
+  .form-group textarea{min-height:100px;resize:vertical;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .info-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:sticky;top:90px;}
+  .info-item{display:flex;gap:1rem;padding:1.25rem 0;border-bottom:1px solid var(--border);}
+  .info-item:last-child{border-bottom:none;padding-bottom:0;}
+  .info-label{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.25rem;}
+  .map-placeholder{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);height:280px;overflow:hidden;}
+  .map-placeholder iframe{width:100%;height:100%;border:none;}
+  footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 2.5rem;}
+  .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;}
+  .footer-brand p{font-size:0.88rem;color:var(--muted);margin-top:0.75rem;max-width:240px;line-height:1.7;}
+  .footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .footer-col a{display:block;color:var(--text);text-decoration:none;font-size:0.88rem;margin-bottom:0.5rem;cursor:pointer;transition:color 0.2s;}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-bottom{max-width:1200px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--muted);flex-wrap:wrap;gap:1rem;}
+  .rp-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.2);border-radius:2px;padding:0.3rem 0.8rem;font-size:0.75rem;font-weight:600;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-top:1rem;}
+  .success-msg{display:none;background:rgba(232,160,32,0.1);border:1px solid var(--gold);border-radius:var(--radius);padding:1rem 1.5rem;color:var(--gold);font-size:0.95rem;margin-top:1rem;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+  .page.active .hero-eyebrow{animation:fadeUp 0.55s 0.05s ease both;}
+  .page.active .hero-title{animation:fadeUp 0.55s 0.15s ease both;}
+  .page.active .hero-sub{animation:fadeUp 0.55s 0.25s ease both;}
+  .page.active .hero-actions{animation:fadeUp 0.55s 0.35s ease both;}
+  @media(max-width:900px){nav{padding:0 1.5rem;}.why-grid,.about-hero-inner,.booking-layout,.contact-layout{grid-template-columns:1fr;gap:2.5rem;}.footer-inner{grid-template-columns:1fr 1fr;}.section{padding:4rem 1.5rem;}.form-row{grid-template-columns:1fr;}}
+  @media(max-width:600px){.nav-links{display:none;}.hero-title{font-size:3rem;}.footer-inner{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-    </div>
+    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
     <div class="logo-text">New Roads Garage<span class="logo-sub">Ann Arbor, Michigan</span></div>
   </div>
   <ul class="nav-links">
@@ -154,136 +132,123 @@
     <li><a onclick="showPage('booking')" class="nav-cta">Book Appointment</a></li>
   </ul>
 </nav>
-<!-- HOME -->
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-bg"></div><div class="hero-grid"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">Ann Arbor, Michigan · Est. Washtenaw Ave</div>
+      <div class="hero-eyebrow">Ann Arbor, Michigan · Washtenaw Ave</div>
       <h1 class="hero-title">Your Trusted<br>Auto Repair<br><span>Partner.</span></h1>
-      <p class="hero-sub">ASE Certified master mechanics serving Ann Arbor and surrounding communities. Fair prices, honest answers, and quality work — every single time.</p>
+      <p class="hero-sub">ASE Certified master mechanics serving Ann Arbor. Fair prices, honest answers, and quality work — every single time.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="showPage('booking')">⚡ Book Appointment</button>
         <button class="btn-outline" onclick="showPage('services')">View All Services</button>
       </div>
       <div class="hero-badges">
         <div class="hero-badge"><span class="dot"></span> RepairPal Certified</div>
-        <div class="hero-badge"><span class="dot"></span> ASE Certified Mechanics</div>
+        <div class="hero-badge"><span class="dot"></span> ASE Certified</div>
         <div class="hero-badge"><span class="dot"></span> 12-Month Warranty</div>
         <div class="hero-badge"><span class="dot"></span> Free Diagnostics</div>
         <div class="hero-badge"><span class="dot"></span> Financing Available</div>
       </div>
     </div>
   </section>
-  <div class="trust-bar">
-    <div class="trust-inner">
-      <div class="trust-item"><span class="chk">✓</span> ASE Certified</div>
-      <div class="trust-item"><span class="chk">✓</span> RepairPal Certified</div>
-      <div class="trust-item"><span class="chk">✓</span> 12mo / 12k Warranty</div>
-      <div class="trust-item"><span class="chk">✓</span> Free Diagnostics</div>
-      <div class="trust-item"><span class="chk">✓</span> Financing Available</div>
-      <div class="trust-item"><span class="chk">✓</span> All Makes & Models</div>
-      <div class="trust-item"><span class="chk">✓</span> Photo Verification</div>
-    </div>
-  </div>
+  <div class="trust-bar"><div class="trust-inner">
+    <div class="trust-item"><span class="chk">✓</span> ASE Certified</div>
+    <div class="trust-item"><span class="chk">✓</span> RepairPal Certified</div>
+    <div class="trust-item"><span class="chk">✓</span> 12mo / 12k Warranty</div>
+    <div class="trust-item"><span class="chk">✓</span> Free Diagnostics</div>
+    <div class="trust-item"><span class="chk">✓</span> Financing Available</div>
+    <div class="trust-item"><span class="chk">✓</span> All Makes & Models</div>
+    <div class="trust-item"><span class="chk">✓</span> Sat 8am–3pm</div>
+  </div></div>
   <div class="section">
     <div class="section-label">What We Do</div>
     <h2 class="section-title">Expert Repairs<br>Across All Systems</h2>
-    <p class="section-sub">From routine oil changes to full engine rebuilds — our master mechanics handle it all with precision, transparency, and care.</p>
+    <p class="section-sub">From routine oil changes to full engine rebuilds — our master mechanics handle it all.</p>
     <div class="services-grid">
-      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🔧</div><div class="service-name">Engine Repair</div><div class="service-desc">Diagnostics, tune-ups, head gaskets, timing belts, and full engine rebuilds by master mechanics.</div></div>
-      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🛑</div><div class="service-name">Brakes & Suspension</div><div class="service-desc">25% off pads & rotors. Alignment, struts, shocks, and full brake system service.</div></div>
-      <div class="service-card" onclick="showPage('services')"><div class="service-icon">💡</div><div class="service-name">Free Diagnostics</div><div class="service-desc">Multi-point inspection with photo verification of every issue we find. No surprises.</div></div>
-      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🔄</div><div class="service-name">Transmission</div><div class="service-desc">Automatic and manual transmission repair, service, and full rebuilds on all makes.</div></div>
-      <div class="service-card" onclick="showPage('services')"><div class="service-icon">❄️</div><div class="service-name">A/C & Heating</div><div class="service-desc">Full climate control system inspection, recharge, repair, and replacement.</div></div>
-      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🛢️</div><div class="service-name">Oil Change & Maintenance</div><div class="service-desc">Scheduled maintenance, oil changes, filters, and all manufacturer-recommended services.</div></div>
+      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🔧</div><div class="service-name">Engine Repair</div><div class="service-desc">Diagnostics, tune-ups, head gaskets, timing belts, and full rebuilds.</div></div>
+      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🛑</div><div class="service-name">Brakes & Suspension</div><div class="service-desc">25% off pads & rotors. Alignment, struts, shocks, full brake service.</div></div>
+      <div class="service-card" onclick="showPage('services')"><div class="service-icon">💡</div><div class="service-name">Free Diagnostics</div><div class="service-desc">Multi-point inspection with photo verification. No surprises.</div></div>
+      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🔄</div><div class="service-name">Transmission</div><div class="service-desc">Automatic and manual transmission repair and rebuilds on all makes.</div></div>
+      <div class="service-card" onclick="showPage('services')"><div class="service-icon">❄️</div><div class="service-name">A/C & Heating</div><div class="service-desc">Full climate system inspection, recharge, repair, and replacement.</div></div>
+      <div class="service-card" onclick="showPage('services')"><div class="service-icon">🛢️</div><div class="service-name">Oil Change & Maintenance</div><div class="service-desc">Scheduled maintenance, oil changes, filters, and manufacturer services.</div></div>
     </div>
     <div style="text-align:center;margin-top:2.5rem;"><button class="btn-outline" onclick="showPage('services')">See All 12 Services →</button></div>
   </div>
   <div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-    <div class="section">
-      <div class="why-grid">
-        <div>
-          <div class="section-label">Why Choose Us</div>
-          <h2 class="section-title">Honest Mechanics.<br>Real Results.</h2>
-          <ul class="why-list">
-            <li class="why-item"><span class="why-num">01</span><div class="why-text"><h3>ASE Certified Master Mechanics</h3><p>Every technician holds ASE certification — the gold standard in automotive service professionalism.</p></div></li>
-            <li class="why-item"><span class="why-num">02</span><div class="why-text"><h3>Photo-Verified Transparency</h3><p>We photograph every issue we find so you always know exactly what's happening under the hood.</p></div></li>
-            <li class="why-item"><span class="why-num">03</span><div class="why-text"><h3>RepairPal Certified Quality</h3><p>RepairPal certification means strict standards for quality repairs at fair, competitive prices.</p></div></li>
-            <li class="why-item"><span class="why-num">04</span><div class="why-text"><h3>Industry-Leading Warranty</h3><p>12 months or 12,000 miles on every repair. We back our work — no questions asked.</p></div></li>
-          </ul>
-        </div>
-        <div class="why-visual">
-          <div class="stat-block"><div class="stat-num">12K</div><div class="stat-label">Mile Warranty on All Work</div></div>
-          <div class="stat-divider"></div>
-          <div class="stat-block"><div class="stat-num">100%</div><div class="stat-label">ASE Certified Mechanics</div></div>
-          <div class="stat-divider"></div>
-          <div class="stat-block"><div class="stat-num">FREE</div><div class="stat-label">Diagnostics — Always Included</div></div>
-          <div class="stat-divider"></div>
-          <div class="stat-block"><div class="stat-num">All</div><div class="stat-label">Makes & Models Accepted</div></div>
-        </div>
+    <div class="section"><div class="why-grid">
+      <div>
+        <div class="section-label">Why Choose Us</div>
+        <h2 class="section-title">Honest Mechanics.<br>Real Results.</h2>
+        <ul class="why-list">
+          <li class="why-item"><span class="why-num">01</span><div class="why-text"><h3>ASE Certified Master Mechanics</h3><p>Every technician holds ASE certification — the gold standard in automotive service.</p></div></li>
+          <li class="why-item"><span class="why-num">02</span><div class="why-text"><h3>Photo-Verified Transparency</h3><p>We photograph every issue so you always know exactly what's happening under the hood.</p></div></li>
+          <li class="why-item"><span class="why-num">03</span><div class="why-text"><h3>RepairPal Certified Quality</h3><p>Strict standards for quality repairs at fair, competitive prices.</p></div></li>
+          <li class="why-item"><span class="why-num">04</span><div class="why-text"><h3>Industry-Leading Warranty</h3><p>12 months or 12,000 miles on every repair — no questions asked.</p></div></li>
+        </ul>
       </div>
-    </div>
+      <div class="why-visual">
+        <div class="stat-block"><div class="stat-num">12K</div><div class="stat-label">Mile Warranty on All Work</div></div>
+        <div class="stat-divider"></div>
+        <div class="stat-block"><div class="stat-num">100%</div><div class="stat-label">ASE Certified Mechanics</div></div>
+        <div class="stat-divider"></div>
+        <div class="stat-block"><div class="stat-num">FREE</div><div class="stat-label">Diagnostics — Always Included</div></div>
+        <div class="stat-divider"></div>
+        <div class="stat-block"><div class="stat-num">All</div><div class="stat-label">Makes & Models Accepted</div></div>
+      </div>
+    </div></div>
   </div>
   <div class="section">
     <div class="section-label">Customer Reviews</div>
     <h2 class="section-title">What Ann Arbor<br>Is Saying</h2>
     <div class="reviews-grid">
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"It's been a few years now I've brought our 2009 Honda here. Thanks to the care and service, Betsy is still running like a champ. Solid service, honest price quotes, and swift repairs — no pressure whatsoever."</p><div class="review-author">— Google Review · Ann Arbor, MI</div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Fair prices. They fix the requested service item and keep an eye out for other issues with no pressure to address them. I can't imagine taking my car anywhere else. Biggest bonus? Honest communication every step."</p><div class="review-author">— Yelp Review · Ann Arbor, MI</div></div>
-      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"A great and trusted car repair facility. Master mechanics on duty and they genuinely explain what's going on with your vehicle. The photo verification gives me total peace of mind every visit."</p><div class="review-author">— Google Review · Ann Arbor, MI</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Solid service, honest price quotes, and swift repairs — no pressure whatsoever. I can't imagine taking my car anywhere else."</p><div class="review-author">— Google Review · Ann Arbor, MI</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Fair prices. They fix the requested item and keep an eye out for other issues with no pressure. Honest communication every step."</p><div class="review-author">— Yelp Review · Ann Arbor, MI</div></div>
+      <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"A great and trusted car repair facility. Master mechanics on duty who genuinely explain what's going on with your vehicle."</p><div class="review-author">— Google Review · Ann Arbor, MI</div></div>
     </div>
   </div>
-  <div class="cta-banner">
-    <div class="cta-inner">
-      <div>
-        <div class="cta-title">Ready to Get Back on the Road?</div>
-        <p style="color:rgba(10,10,10,0.6);font-size:0.95rem;margin-top:0.4rem;">Call us or book online — same-day appointments often available.</p>
-      </div>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
-        <a href="tel:7349262222" style="color:#0A0A0A;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-decoration:none;">(734) 926-2222</a>
-        <button class="btn-dark" onclick="showPage('booking')">Book Online →</button>
-      </div>
+  <div class="cta-banner"><div class="cta-inner">
+    <div><div class="cta-title">Ready to Get Back on the Road?</div><p style="color:rgba(10,10,10,0.6);font-size:0.95rem;margin-top:0.4rem;">Call us or book online — same-day appointments often available.</p></div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+      <a href="tel:7349262222" style="color:#0A0A0A;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-decoration:none;">(734) 926-2222</a>
+      <button class="btn-dark" onclick="showPage('booking')">Book Online →</button>
     </div>
+  </div></div>
+  <footer><div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo"><div class="logo-icon" style="width:30px;height:30px;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div><span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:0.04em;">New Roads Garage</span></div>
+      <p>Ann Arbor's trusted auto repair shop. ASE & RepairPal Certified. Fair prices, honest work.</p>
+      <div class="rp-badge">✓ RepairPal Certified</div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('services')">Services</a><a onclick="showPage('about')">About</a><a onclick="showPage('contact')">Contact</a><a onclick="showPage('booking')">Book Appointment</a></div>
+    <div class="footer-col"><h4>Top Services</h4><a onclick="showPage('services')">Engine Repair</a><a onclick="showPage('services')">Brakes & Rotors</a><a onclick="showPage('services')">Free Diagnostics</a><a onclick="showPage('services')">Transmission</a><a onclick="showPage('services')">Oil Change</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="tel:7349262222">(734) 926-2222</a><a>3170 Washtenaw Ave</a><a>Ann Arbor, MI 48104</a><a>Mon–Fri 8am–6pm · Sat 8am–3pm</a></div>
   </div>
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="nav-logo"><div class="logo-icon" style="width:30px;height:30px;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div><span style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;text-transform:uppercase;letter-spacing:0.04em;">New Roads Garage</span></div>
-        <p>Ann Arbor's trusted auto repair shop. ASE Certified. RepairPal Certified. Fair prices, honest work.</p>
-        <div class="rp-badge">✓ RepairPal Certified</div>
-      </div>
-      <div class="footer-col"><h4>Navigate</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('services')">Services</a><a onclick="showPage('about')">About</a><a onclick="showPage('contact')">Contact</a><a onclick="showPage('booking')">Book Appointment</a></div>
-      <div class="footer-col"><h4>Top Services</h4><a onclick="showPage('services')">Engine Repair</a><a onclick="showPage('services')">Brakes & Rotors</a><a onclick="showPage('services')">Free Diagnostics</a><a onclick="showPage('services')">Transmission</a><a onclick="showPage('services')">Oil Change</a></div>
-      <div class="footer-col"><h4>Contact</h4><a href="tel:7349262222">(734) 926-2222</a><a>3170 Washtenaw Ave</a><a>Ann Arbor, MI 48104</a><a>Mon–Fri 8am–6pm · Sat 8am–3pm</a></div>
-    </div>
-    <div class="footer-bottom"><span>© 2025 New Roads Garage · All rights reserved.</span><span>3170 Washtenaw Ave, Ann Arbor, MI 48104</span></div>
+  <div class="footer-bottom"><span>© 2025 New Roads Garage · All rights reserved.</span><span>3170 Washtenaw Ave, Ann Arbor, MI 48104</span></div>
   </footer>
 </div>
-<!-- SERVICES -->
 <div id="page-services" class="page">
   <div class="section">
     <div class="section-label">Full-Service Auto Shop</div>
-    <h1 class="section-title">Everything Your<br>Vehicle Needs</h1>
-    <p class="section-sub">ASE Certified master mechanics handle it all — foreign and domestic, fleet and personal. If your vehicle needs it, we can fix it.</p>
+    <h1 class="section-title">Everything Your Vehicle Needs</h1>
+    <p class="section-sub">ASE Certified master mechanics handle it all — foreign and domestic. If your vehicle needs it, we can fix it.</p>
     <div class="services-full-grid">
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔧</div><div class="service-name">Engine Repair</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Full engine diagnostics, valve work, head gaskets, timing belts, and complete rebuilds. Engine bay clean-down to locate and verify all leaks.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🛑</div><div class="service-name">Brakes & Rotors</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">25% off brake pads & rotors. Full brake system inspection, caliper repair, brake line service, and ABS diagnostics.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🎯</div><div class="service-name">Alignment & Suspension</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Wheel alignment, struts, shocks, control arms, tie rods, and complete suspension overhaul. Suspension & tire deals available.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔄</div><div class="service-name">Transmission</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Automatic and manual transmission repair, fluid service, clutch replacement, and full rebuild on all makes and models.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">💡</div><div class="service-name">Free Diagnostics</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Free multi-point safety inspection and OBD diagnostics with photo verification. Know exactly what's wrong before any work begins.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">❄️</div><div class="service-name">A/C & Heating</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Climate control inspection, refrigerant recharge, compressor replacement, heater core, and blower motor service.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🛢️</div><div class="service-name">Oil Change & Maintenance</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Conventional and synthetic oil changes, filter replacement, and all manufacturer-scheduled maintenance services.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔋</div><div class="service-name">Battery & Electrical</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Battery testing and replacement, alternator, starter motor, and full electrical system diagnosis and repair.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">💨</div><div class="service-name">Exhaust & Emissions</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Exhaust repair and replacement, catalytic converter, muffler, and emissions testing and repair services.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔍</div><div class="service-name">Pre-Purchase Inspection</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Comprehensive pre-owned vehicle inspection before you buy. Know what you're getting into with a full written report.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🌡️</div><div class="service-name">Radiator & Cooling</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Cooling system flush, radiator repair and replacement, water pump, thermostat, and hose replacement.</div></div>
-      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🪟</div><div class="service-name">Glass & Key Replacement</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Windshield and window glass replacement. Key replacement services also available for all makes and models.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔧</div><div class="service-name">Engine Repair</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Full diagnostics, valve work, head gaskets, timing belts, complete rebuilds. Engine bay clean-down to verify all leaks.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🛑</div><div class="service-name">Brakes & Rotors</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">25% off pads & rotors. Full brake system inspection, caliper repair, brake line service, ABS diagnostics.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🎯</div><div class="service-name">Alignment & Suspension</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Wheel alignment, struts, shocks, control arms, tie rods, complete suspension overhaul.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔄</div><div class="service-name">Transmission</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Automatic and manual repair, fluid service, clutch replacement, full rebuild on all makes.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">💡</div><div class="service-name">Free Diagnostics</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Free multi-point inspection and OBD diagnostics with photo verification before any work begins.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">❄️</div><div class="service-name">A/C & Heating</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Climate control inspection, refrigerant recharge, compressor replacement, heater core service.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🛢️</div><div class="service-name">Oil Change & Maintenance</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Conventional and synthetic oil changes, filter replacement, all manufacturer-scheduled services.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔋</div><div class="service-name">Battery & Electrical</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Battery testing and replacement, alternator, starter motor, full electrical system diagnosis.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">💨</div><div class="service-name">Exhaust & Emissions</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Exhaust repair, catalytic converter, muffler, and emissions testing and repair services.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🔍</div><div class="service-name">Pre-Purchase Inspection</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Comprehensive pre-owned vehicle inspection before you buy — full written report included.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🌡️</div><div class="service-name">Radiator & Cooling</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Cooling system flush, radiator repair, water pump, thermostat, hose replacement.</div></div>
+      <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🪟</div><div class="service-name">Glass & Key Replacement</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Windshield and window glass replacement. Key replacement for all makes and models.</div></div>
     </div>
   </div>
-  <div class="cta-banner"><div class="cta-inner"><div><div class="cta-title">Not Sure What Your Car Needs?</div><p style="color:rgba(10,10,10,0.6);margin-top:0.3rem;">Free diagnostics — just call and we'll figure it out together.</p></div><div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;"><a href="tel:7349262222" style="color:#0A0A0A;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-decoration:none;">(734) 926-2222</a><button class="btn-dark" onclick="showPage('booking')">Book Online →</button></div></div></div>
+  <div class="cta-banner"><div class="cta-inner"><div><div class="cta-title">Not Sure What Your Car Needs?</div><p style="color:rgba(10,10,10,0.6);margin-top:0.3rem;">Free diagnostics — just call and we'll figure it out together.</p></div><div style="display:flex;gap:1rem;align-items:center;"><a href="tel:7349262222" style="color:#0A0A0A;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-decoration:none;">(734) 926-2222</a><button class="btn-dark" onclick="showPage('booking')">Book Online →</button></div></div></div>
 </div>
-<!-- ABOUT -->
 <div id="page-about" class="page">
   <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:5rem 2.5rem;">
     <div class="about-hero-inner">
@@ -291,8 +256,8 @@
         <div class="section-label">Our Story</div>
         <h1 class="section-title" style="margin-bottom:1.5rem;">Built on Trust.<br>Driven by Quality.</h1>
         <p style="color:var(--muted);line-height:1.8;margin-bottom:1rem;">New Roads Garage was built with a simple mission: give Ann Arbor drivers the honest, expert auto repair they deserve. No upselling. No runaround. Just quality work at fair prices, every time.</p>
-        <p style="color:var(--muted);line-height:1.8;margin-bottom:1rem;">Located on Washtenaw Avenue, we serve drivers across Ann Arbor and all surrounding communities. Every repair is backed by our 12-month, 12,000-mile warranty — because we stand behind our work completely.</p>
-        <p style="color:var(--muted);line-height:1.8;">We're RepairPal Certified and staffed by ASE Certified master mechanics. When you bring your vehicle to us, you get full transparency — including photo verification of all diagnosed issues, before any work begins.</p>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:1rem;">Located on Washtenaw Avenue, every repair is backed by our 12-month, 12,000-mile warranty — because we stand behind our work completely.</p>
+        <p style="color:var(--muted);line-height:1.8;">We're RepairPal Certified and staffed by ASE Certified master mechanics. You get full transparency including photo verification of all diagnosed issues before any work begins.</p>
       </div>
       <div class="creds-grid">
         <div class="cred-card"><div class="cred-icon">🏆</div><div class="cred-title">ASE Certified</div><div class="cred-sub">Master Mechanics on Staff</div></div>
@@ -302,121 +267,90 @@
       </div>
     </div>
   </div>
-  <div class="section">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;" class="about-grid">
-      <div>
-        <div class="section-label">We Work With Everyone</div>
-        <h2 class="section-title" style="margin-bottom:1.5rem;">No Limits.<br>All Welcome.</h2>
-        <p style="color:var(--muted);line-height:1.8;margin-bottom:1.5rem;">We accept all warranty companies, all fleet accounts, and financing is available so you're never stuck without options.</p>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.8rem;">
-          <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> All Warranty Companies Accepted</li>
-          <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Fleet Accounts Welcomed</li>
-          <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Financing Available</li>
-          <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Outside Parts Accepted</li>
-          <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Senior Discounts Available</li>
-          <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Foreign & Domestic Specialist</li>
-        </ul>
-      </div>
-      <div>
-        <div class="section-label">Shop Amenities</div>
-        <h2 class="section-title" style="margin-bottom:1.5rem;">A Better<br>Experience</h2>
-        <p style="color:var(--muted);line-height:1.8;">We know getting your car repaired isn't always convenient — so we make it as easy as possible.</p>
-        <div class="amenity-list">
-          <div class="amenity-item">Free WiFi</div><div class="amenity-item">Fresh Coffee</div>
-          <div class="amenity-item">Car Pickup / Dropoff</div><div class="amenity-item">Free Diagnostics</div>
-          <div class="amenity-item">Financing Available</div><div class="amenity-item">Senior Discount</div>
-          <div class="amenity-item">Photo Reports</div><div class="amenity-item">Fast Turnaround</div>
-        </div>
+  <div class="section"><div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;" class="about-grid">
+    <div>
+      <div class="section-label">We Work With Everyone</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">No Limits. All Welcome.</h2>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.8rem;">
+        <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> All Warranty Companies Accepted</li>
+        <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Fleet Accounts Welcomed</li>
+        <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Financing Available</li>
+        <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Outside Parts Accepted</li>
+        <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Senior Discounts Available</li>
+        <li style="display:flex;align-items:center;gap:0.75rem;font-size:0.92rem;color:var(--muted);"><span style="color:var(--gold);font-weight:700;">✓</span> Foreign & Domestic Specialist</li>
+      </ul>
+    </div>
+    <div>
+      <div class="section-label">Shop Amenities</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">A Better Experience</h2>
+      <p style="color:var(--muted);line-height:1.8;">We make getting your car repaired as easy as possible.</p>
+      <div class="amenity-list">
+        <div class="amenity-item">Free WiFi</div><div class="amenity-item">Fresh Coffee</div>
+        <div class="amenity-item">Car Pickup / Dropoff</div><div class="amenity-item">Free Diagnostics</div>
+        <div class="amenity-item">Financing Available</div><div class="amenity-item">Senior Discount</div>
+        <div class="amenity-item">Photo Reports</div><div class="amenity-item">Fast Turnaround</div>
       </div>
     </div>
-  </div>
+  </div></div>
   <div class="cta-banner"><div class="cta-inner"><div class="cta-title">Ann Arbor's Most Trusted Shop.<br>Come See for Yourself.</div><button class="btn-dark" onclick="showPage('booking')">Schedule Service →</button></div></div>
 </div>
-<!-- BOOKING -->
 <div id="page-booking" class="page">
   <div class="section">
     <div class="section-label">Schedule Service</div>
-    <h1 class="section-title">Book Your<br>Appointment</h1>
-    <p class="section-sub">Fill out the form and we'll confirm within one business hour. Free diagnostics available on every visit — just ask.</p>
+    <h1 class="section-title">Book Your Appointment</h1>
+    <p class="section-sub">Fill out the form and we'll confirm within one business hour. Free diagnostics on every visit.</p>
     <div class="booking-layout">
       <div>
         <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div><div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div></div>
-        <div class="form-row"><div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email Address</label><input type="email" placeholder="john@email.com"></div></div>
+        <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email</label><input type="email" placeholder="john@email.com"></div></div>
         <div class="form-row"><div class="form-group"><label>Vehicle Year</label><input type="text" placeholder="2019"></div><div class="form-group"><label>Make & Model</label><input type="text" placeholder="Toyota Camry"></div></div>
-        <div class="form-group">
-          <label>Service Needed</label>
-          <select><option value="">Select a service...</option><option>Engine Repair</option><option>Brakes & Rotors</option><option>Alignment & Suspension</option><option>Transmission Service</option><option>Free Diagnostics / Check Engine Light</option><option>A/C & Heating</option><option>Oil Change & Maintenance</option><option>Battery & Electrical</option><option>Exhaust & Emissions</option><option>Pre-Purchase Inspection</option><option>Radiator & Cooling</option><option>Glass / Key Replacement</option><option>Other / Not Sure</option></select>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label>Preferred Date</label><input type="date" id="b-date"></div>
-          <div class="form-group"><label>Preferred Time</label><select><option value="">Select a time...</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div>
-        </div>
+        <div class="form-group"><label>Service Needed</label><select><option value="">Select a service...</option><option>Engine Repair</option><option>Brakes & Rotors</option><option>Alignment & Suspension</option><option>Transmission Service</option><option>Free Diagnostics / Check Engine Light</option><option>A/C & Heating</option><option>Oil Change & Maintenance</option><option>Battery & Electrical</option><option>Exhaust & Emissions</option><option>Pre-Purchase Inspection</option><option>Radiator & Cooling</option><option>Other / Not Sure</option></select></div>
+        <div class="form-row"><div class="form-group"><label>Preferred Date</label><input type="date" id="b-date"></div><div class="form-group"><label>Preferred Time</label><select><option value="">Select a time...</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div></div>
         <div class="form-group"><label>Describe the Issue (Optional)</label><textarea placeholder="Tell us what you're experiencing — noises, warning lights, or concerns..."></textarea></div>
         <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitBooking()">Confirm Appointment Request →</button>
-        <div class="success-msg" id="booking-success">✓ Request received! We'll call or text you within one business hour to confirm your appointment.</div>
+        <div class="success-msg" id="booking-success">✓ Request received! We'll call or text you within one business hour to confirm.</div>
       </div>
       <div class="info-panel">
         <div style="margin-bottom:1.5rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;">New Roads Garage</div><div class="rp-badge" style="margin-top:0;">✓ RepairPal Certified</div></div>
         <div class="info-item" style="padding-top:0;"><span style="font-size:1.3rem;">📍</span><div><div class="info-label">Address</div><div>3170 Washtenaw Ave<br>Ann Arbor, MI 48104</div></div></div>
         <div class="info-item"><span style="font-size:1.3rem;">📞</span><div><div class="info-label">Phone</div><div><a href="tel:7349262222" style="color:var(--gold);text-decoration:none;font-size:1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:800;">(734) 926-2222</a></div></div></div>
-        <div class="info-item"><span style="font-size:1.3rem;">🕐</span><div><div class="info-label">Hours</div><div>Monday – Friday<br>8:00 AM – 6:00 PM<br><span style="color:var(--muted);">Sat: 8am–3pm · Sun: Closed</span></div></div></div>
-        <div class="info-item"><span style="font-size:1.3rem;">🛡️</span><div><div class="info-label">Our Warranty</div><div>12 Months / 12,000 Miles<br>on All Repairs</div></div></div>
+        <div class="info-item"><span style="font-size:1.3rem;">🕐</span><div><div class="info-label">Hours</div><div>Mon–Fri: 8:00 AM – 6:00 PM<br><span style="color:var(--muted);">Sat: 8am–3pm · Sun: Closed</span></div></div></div>
+        <div class="info-item"><span style="font-size:1.3rem;">🛡️</span><div><div class="info-label">Our Warranty</div><div>12 Months / 12,000 Miles on All Repairs</div></div></div>
         <div class="info-item"><span style="font-size:1.3rem;">💡</span><div><div class="info-label">Free Diagnostics</div><div>Multi-point inspection included with every visit — always free.</div></div></div>
       </div>
     </div>
   </div>
 </div>
-<!-- CONTACT -->
 <div id="page-contact" class="page">
   <div class="section">
     <div class="section-label">Get In Touch</div>
-    <h1 class="section-title">Contact<br>New Roads Garage</h1>
-    <p class="section-sub">Questions about your vehicle? Ready to schedule? Give us a call or send a message — we respond fast.</p>
+    <h1 class="section-title">Contact New Roads Garage</h1>
+    <p class="section-sub">Questions about your vehicle? Ready to schedule? Give us a call or send a message.</p>
     <div class="contact-layout">
       <div>
         <div style="display:flex;flex-direction:column;gap:0;">
-          <div class="info-item" style="padding-top:0;"><span style="font-size:1.4rem;margin-top:2px;">📍</span><div><div class="info-label">Location</div><div style="font-size:1rem;">3170 Washtenaw Ave, Ann Arbor, MI 48104</div></div></div>
-          <div class="info-item"><span style="font-size:1.4rem;margin-top:2px;">📞</span><div><div class="info-label">Phone</div><div><a href="tel:7349262222" style="color:var(--gold);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;">(734) 926-2222</a></div></div></div>
-          <div class="info-item"><span style="font-size:1.4rem;margin-top:2px;">🕐</span><div><div class="info-label">Hours of Operation</div><div>Monday – Friday: 8:00 AM – 6:00 PM<br><span style="color:var(--muted);">Saturday: 8:00 AM – 3:00 PM</span></div></div></div>
+          <div class="info-item" style="padding-top:0;"><span style="font-size:1.4rem;">📍</span><div><div class="info-label">Location</div><div>3170 Washtenaw Ave, Ann Arbor, MI 48104</div></div></div>
+          <div class="info-item"><span style="font-size:1.4rem;">📞</span><div><div class="info-label">Phone</div><div><a href="tel:7349262222" style="color:var(--gold);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;">(734) 926-2222</a></div></div></div>
+          <div class="info-item"><span style="font-size:1.4rem;">🕐</span><div><div class="info-label">Hours</div><div>Mon–Fri: 8:00 AM – 6:00 PM<br><span style="color:var(--muted);">Saturday: 8:00 AM – 3:00 PM</span></div></div></div>
         </div>
-        <div style="margin-top:2rem;" class="map-placeholder">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2951.847!2d-83.6883!3d42.2701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x883cb44d09218bcf%3A0x9f5bac61c64d78d3!2s3170%20Washtenaw%20Ave%2C%20Ann%20Arbor%2C%20MI%2048104!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+        <div style="margin-top:2rem;" class="map-placeholder"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2951.847!2d-83.6883!3d42.2701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x883cb44d09218bcf%3A0x9f5bac61c64d78d3!2s3170%20Washtenaw%20Ave%2C%20Ann%20Arbor%2C%20MI%2048104!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
       </div>
-      <div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;">
-          <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:1.5rem;">Send Us a Message</h3>
-          <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Doe"></div>
-          <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"></div></div>
-          <div class="form-group"><label>Message</label><textarea style="min-height:140px;" placeholder="How can we help you?"></textarea></div>
-          <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitContact()">Send Message →</button>
-          <div class="success-msg" id="contact-success">✓ Message sent! We'll be in touch soon.</div>
-        </div>
-      </div>
+      <div><div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:1.5rem;">Send Us a Message</h3>
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Doe"></div>
+        <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"></div></div>
+        <div class="form-group"><label>Message</label><textarea style="min-height:140px;" placeholder="How can we help you?"></textarea></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitContact()">Send Message →</button>
+        <div class="success-msg" id="contact-success">✓ Message sent! We'll be in touch soon.</div>
+      </div></div>
     </div>
   </div>
 </div>
 <script>
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-    const el = document.getElementById('nav-' + id);
-    if (el) el.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  function submitBooking() {
-    const s = document.getElementById('booking-success');
-    s.style.display = 'block';
-    setTimeout(() => { s.style.display = 'none'; }, 7000);
-  }
-  function submitContact() {
-    const s = document.getElementById('contact-success');
-    s.style.display = 'block';
-    setTimeout(() => { s.style.display = 'none'; }, 7000);
-  }
-  const d = document.getElementById('b-date');
-  if (d) d.min = new Date().toISOString().split('T')[0];
+  function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));const el=document.getElementById('nav-'+id);if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+  function submitBooking(){const s=document.getElementById('booking-success');s.style.display='block';setTimeout(()=>{s.style.display='none';},7000);}
+  function submitContact(){const s=document.getElementById('contact-success');s.style.display='block';setTimeout(()=>{s.style.display='none';},7000);}
+  const d=document.getElementById('b-date');if(d)d.min=new Date().toISOString().split('T')[0];
 </script>
 </body>
 </html>
