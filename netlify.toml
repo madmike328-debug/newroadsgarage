@@ -1,7 +1,10 @@
 [build]
   publish = "."
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Type = "text/html; charset=UTF-8"
+  [functions]
+    directory = "netlify/functions"
+
+    [[headers]]
+      for = "/*"
+        [headers.values]
+            Content-Type = "text/html; charset=UTF-8"
