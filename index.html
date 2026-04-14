@@ -354,3 +354,93 @@
 </script>
 </body>
 </html>
+
+<!-- AI Chat Widget -->
+<style>
+#chat-toggle{position:fixed;bottom:24px;right:24px;z-index:9999;width:60px;height:60px;border-radius:50%;background:var(--gold,#E8A020);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+#chat-toggle:hover{transform:scale(1.1)}
+#chat-toggle svg{width:28px;height:28px;fill:#141414}
+#chat-box{position:fixed;bottom:96px;right:24px;z-index:9999;width:370px;max-width:calc(100vw - 48px);height:480px;max-height:calc(100vh - 140px);background:var(--surface,#141414);border:1px solid var(--border,#272727);border-radius:16px;display:none;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,.5);font-family:'Barlow',sans-serif}
+#chat-box.open{display:flex}
+#chat-header{padding:16px;background:var(--card,#1A1A1A);border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border,#272727)}
+#chat-header h4{margin:0;color:var(--gold,#E8A020);font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700}
+#chat-close{background:none;border:none;color:var(--muted,#888);cursor:pointer;font-size:1.4rem;padding:0 4px}
+#chat-close:hover{color:var(--text,#F0EDE6)}
+#chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:.9rem;line-height:1.5;color:var(--text,#F0EDE6);word-wrap:break-word}
+.chat-msg.user{align-self:flex-end;background:var(--gold,#E8A020);color:#141414;border-bottom-right-radius:4px}
+.chat-msg.bot{align-self:flex-start;background:var(--card,#1A1A1A);border:1px solid var(--border,#272727);border-bottom-left-radius:4px}
+.chat-msg.bot.typing{opacity:.7;font-style:italic}
+#chat-input-row{display:flex;padding:12px;gap:8px;border-top:1px solid var(--border,#272727)}
+#chat-input{flex:1;padding:10px 14px;border-radius:24px;border:1px solid var(--border,#272727);background:var(--card,#1A1A1A);color:var(--text,#F0EDE6);font-size:.9rem;font-family:'Barlow',sans-serif;outline:none}
+#chat-input:focus{border-color:var(--gold,#E8A020)}
+#chat-input::placeholder{color:var(--muted,#888)}
+#chat-send{width:40px;height:40px;border-radius:50%;background:var(--gold,#E8A020);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#chat-send:hover{background:#d4911c}
+#chat-send svg{width:18px;height:18px;fill:#141414}
+</style>
+
+<button id="chat-toggle" aria-label="Open AI chat" onclick="toggleChat()">
+<svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/><path d="M7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+</button>
+
+<div id="chat-box">
+<div id="chat-header">
+<h4>New Roads AI Assistant</h4>
+<button id="chat-close" onclick="toggleChat()">&times;</button>
+</div>
+<div id="chat-messages">
+<div class="chat-msg bot">Hi! I'm the New Roads Garage assistant. Ask me anything about our services, hours, pricing, or to schedule a visit!</div>
+</div>
+<div id="chat-input-row">
+<input id="chat-input" type="text" placeholder="Ask about our services..." onkeydown="if(event.key==='Enter')sendChat()">
+<button id="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+</div>
+</div>
+
+<script>
+var chatMessages=document.getElementById('chat-messages');
+var chatInput=document.getElementById('chat-input');
+var chatHistory=[];
+var SYSTEM_PROMPT="You are the friendly AI assistant for New Roads Garage, a trusted auto repair shop in Ann Arbor, Michigan. Located at 3170 Packard Rd. Phone: (734) 436-8785. Hours: Mon-Fri 8AM-6PM, Sat 9AM-2PM, closed Sun. Services include oil changes, brake repair, engine diagnostics, tire services, transmission work, AC repair, and general maintenance. You help customers with questions about services, pricing estimates, scheduling, and general car advice. Keep answers concise, helpful, and friendly. If asked about exact pricing, give general ranges and suggest calling or booking for an exact quote.";
+
+function toggleChat(){
+var box=document.getElementById('chat-box');
+box.classList.toggle('open');
+if(box.classList.contains('open'))chatInput.focus();
+}
+
+function sendChat(){
+var msg=chatInput.value.trim();
+if(!msg)return;
+appendMsg(msg,'user');
+chatInput.value='';
+chatHistory.push({role:'user',content:msg});
+var typing=appendMsg('Thinking...','bot typing');
+fetch('/.netlify/functions/gemini-integration',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({messages:chatHistory,system:SYSTEM_PROMPT})
+}).then(function(res){return res.json();}).then(function(data){
+typing.remove();
+if(data.error){appendMsg('Sorry, something went wrong. Please try again or call us at (734) 436-8785.','bot');return;}
+var reply=data.content&&data.content[0]?data.content[0].text:'Sorry, I could not generate a response.';
+appendMsg(reply,'bot');
+chatHistory.push({role:'assistant',content:reply});
+}).catch(function(e){
+typing.remove();
+appendMsg('Sorry, something went wrong. Please try again or call us at (734) 436-8785.','bot');
+});
+}
+
+function appendMsg(text,cls){
+var d=document.createElement('div');
+d.className='chat-msg '+cls;
+d.textContent=text;
+chatMessages.appendChild(d);
+chatMessages.scrollTop=chatMessages.scrollHeight;
+return d;
+}
+</script>
+</body>
+</html>
