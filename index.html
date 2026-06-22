@@ -129,7 +129,7 @@
     <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
     <li><a onclick="showPage('about')" id="nav-about">About</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
-    <li><a onclick="showPage('booking')" class="nav-cta">Book Appointment</a></li>
+    <li><a onclick="showPage('booking')" class="nav-cta">Schedule Drop-Off</a></li>
   </ul>
 </nav>
 <div id="page-home" class="page active">
@@ -140,7 +140,7 @@
       <h1 class="hero-title">Your Trusted<br>Auto Repair<br><span>Partner.</span></h1>
       <p class="hero-sub">ASE Certified master mechanics serving Ann Arbor. Fair prices, honest answers, and quality work — every single time.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="showPage('booking')">⚡ Book Appointment</button>
+        <button class="btn-primary" onclick="showPage('booking')">⚡ Schedule Drop-Off</button>
         <button class="btn-outline" onclick="showPage('services')">View All Services</button>
       </div>
       <div class="hero-badges">
@@ -208,10 +208,10 @@
     </div>
   </div>
   <div class="cta-banner"><div class="cta-inner">
-    <div><div class="cta-title">Ready to Get Back on the Road?</div><p style="color:rgba(10,10,10,0.6);font-size:0.95rem;margin-top:0.4rem;">Call us or book online — same-day appointments often available.</p></div>
+    <div><div class="cta-title">Ready to Get Back on the Road?</div><p style="color:rgba(10,10,10,0.6);font-size:0.95rem;margin-top:0.4rem;">Call us or schedule a drop-off online — we'll take it from there.</p></div>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
       <a href="tel:7349262222" style="color:#0A0A0A;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-decoration:none;">(734) 926-2222</a>
-      <button class="btn-dark" onclick="showPage('booking')">Book Online →</button>
+      <button class="btn-dark" onclick="showPage('booking')">Schedule Drop-Off →</button>
     </div>
   </div></div>
   <footer><div class="footer-inner">
@@ -220,7 +220,7 @@
       <p>Ann Arbor's trusted auto repair shop. ASE & RepairPal Certified. Fair prices, honest work.</p>
       <div class="rp-badge">✓ RepairPal Certified</div>
     </div>
-    <div class="footer-col"><h4>Navigate</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('services')">Services</a><a onclick="showPage('about')">About</a><a onclick="showPage('contact')">Contact</a><a onclick="showPage('booking')">Book Appointment</a></div>
+    <div class="footer-col"><h4>Navigate</h4><a onclick="showPage('home')">Home</a><a onclick="showPage('services')">Services</a><a onclick="showPage('about')">About</a><a onclick="showPage('contact')">Contact</a><a onclick="showPage('booking')">Schedule Drop-Off</a></div>
     <div class="footer-col"><h4>Top Services</h4><a onclick="showPage('services')">Engine Repair</a><a onclick="showPage('services')">Brakes & Rotors</a><a onclick="showPage('services')">Free Diagnostics</a><a onclick="showPage('services')">Transmission</a><a onclick="showPage('services')">Oil Change</a></div>
     <div class="footer-col"><h4>Contact</h4><a href="tel:7349262222">(734) 926-2222</a><a>3170 Washtenaw Ave</a><a>Ann Arbor, MI 48104</a><a>Mon–Fri 8am–6pm · Sat 8am–3pm</a></div>
   </div>
@@ -247,7 +247,7 @@
       <div class="service-full-card"><div class="service-icon" style="font-size:1.4rem;margin-bottom:1rem;">🪟</div><div class="service-name">Glass & Key Replacement</div><div class="service-desc" style="font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:0.5rem;">Windshield and window glass replacement. Key replacement for all makes and models.</div></div>
     </div>
   </div>
-  <div class="cta-banner"><div class="cta-inner"><div><div class="cta-title">Not Sure What Your Car Needs?</div><p style="color:rgba(10,10,10,0.6);margin-top:0.3rem;">Free diagnostics — just call and we'll figure it out together.</p></div><div style="display:flex;gap:1rem;align-items:center;"><a href="tel:7349262222" style="color:#0A0A0A;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-decoration:none;">(734) 926-2222</a><button class="btn-dark" onclick="showPage('booking')">Book Online →</button></div></div></div>
+  <div class="cta-banner"><div class="cta-inner"><div><div class="cta-title">Not Sure What Your Car Needs?</div><p style="color:rgba(10,10,10,0.6);margin-top:0.3rem;">Free diagnostics — just call and we'll figure it out together.</p></div><div style="display:flex;gap:1rem;align-items:center;"><a href="tel:7349262222" style="color:#0A0A0A;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;text-decoration:none;">(734) 926-2222</a><button class="btn-dark" onclick="showPage('booking')">Schedule Drop-Off →</button></div></div></div>
 </div>
 <div id="page-about" class="page">
   <div style="background:var(--surface);border-bottom:1px solid var(--border);padding:5rem 2.5rem;">
@@ -292,23 +292,27 @@
       </div>
     </div>
   </div></div>
-  <div class="cta-banner"><div class="cta-inner"><div class="cta-title">Ann Arbor's Most Trusted Shop.<br>Come See for Yourself.</div><button class="btn-dark" onclick="showPage('booking')">Schedule Service →</button></div></div>
+  <div class="cta-banner"><div class="cta-inner"><div class="cta-title">Ann Arbor's Most Trusted Shop.<br>Come See for Yourself.</div><button class="btn-dark" onclick="showPage('booking')">Schedule Drop-Off →</button></div></div>
 </div>
 <div id="page-booking" class="page">
   <div class="section">
-    <div class="section-label">Schedule Service</div>
-    <h1 class="section-title">Book Your Appointment</h1>
-    <p class="section-sub">Fill out the form and we'll confirm within one business hour. Free diagnostics on every visit.</p>
+    <div class="section-label">Schedule a Drop-Off</div>
+    <h1 class="section-title">Drop-Off Scheduling</h1>
+    <p class="section-sub">We operate on a <strong>drop-off only</strong> basis — leave your vehicle with us and we'll get to work. We'll call or text you when it's ready. Free diagnostics on every visit.</p>
+    <div style="background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.3);border-radius:var(--radius);padding:0.9rem 1.2rem;margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem;font-size:0.88rem;color:var(--text);line-height:1.5;">
+      <span style="font-size:1.2rem;">🚗</span>
+      <span><strong style="color:var(--gold);">Drop-Off Only</strong> — We do not offer wait-while-you-watch appointments. Drop your vehicle off during business hours and we'll contact you when it's ready for pickup.</span>
+    </div>
     <div class="booking-layout">
       <div>
         <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div><div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div></div>
         <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email</label><input type="email" placeholder="john@email.com"></div></div>
         <div class="form-row"><div class="form-group"><label>Vehicle Year</label><input type="text" placeholder="2019"></div><div class="form-group"><label>Make & Model</label><input type="text" placeholder="Toyota Camry"></div></div>
         <div class="form-group"><label>Service Needed</label><select><option value="">Select a service...</option><option>Engine Repair</option><option>Brakes & Rotors</option><option>Alignment & Suspension</option><option>Transmission Service</option><option>Free Diagnostics / Check Engine Light</option><option>A/C & Heating</option><option>Oil Change & Maintenance</option><option>Battery & Electrical</option><option>Exhaust & Emissions</option><option>Pre-Purchase Inspection</option><option>Radiator & Cooling</option><option>Other / Not Sure</option></select></div>
-        <div class="form-row"><div class="form-group"><label>Preferred Date</label><input type="date" id="b-date"></div><div class="form-group"><label>Preferred Time</label><select><option value="">Select a time...</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div></div>
+        <div class="form-row"><div class="form-group"><label>Drop-Off Date</label><input type="date" id="b-date"></div><div class="form-group"><label>Drop-Off Time Window</label><select><option value="">Select a window...</option><option>8:00 AM – 9:00 AM</option><option>9:00 AM – 10:00 AM</option><option>10:00 AM – 11:00 AM</option><option>11:00 AM – 12:00 PM</option><option>12:00 PM – 1:00 PM</option><option>1:00 PM – 2:00 PM</option><option>2:00 PM – 3:00 PM</option><option>3:00 PM – 4:00 PM</option><option>4:00 PM – 5:00 PM</option></select></div></div>
         <div class="form-group"><label>Describe the Issue (Optional)</label><textarea placeholder="Tell us what you're experiencing — noises, warning lights, or concerns..."></textarea></div>
-        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitBooking()">Confirm Appointment Request →</button>
-        <div class="success-msg" id="booking-success">✓ Request received! We'll call or text you within one business hour to confirm.</div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitBooking()">Schedule My Drop-Off →</button>
+        <div class="success-msg" id="booking-success">✓ Drop-off request received! We'll call or text you within one business hour to confirm your drop-off time.</div>
       </div>
       <div class="info-panel">
         <div style="margin-bottom:1.5rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;">New Roads Garage</div><div class="rp-badge" style="margin-top:0;">✓ RepairPal Certified</div></div>
@@ -402,7 +406,7 @@
 var chatMessages=document.getElementById('chat-messages');
 var chatInput=document.getElementById('chat-input');
 var chatHistory=[];
-var SYSTEM_PROMPT="You are the friendly AI assistant for New Roads Garage, a trusted auto repair shop in Ann Arbor, Michigan. Located at 3170 Packard Rd. Phone: (734) 436-8785. Hours: Mon-Fri 8AM-6PM, Sat 9AM-2PM, closed Sun. Services include oil changes, brake repair, engine diagnostics, tire services, transmission work, AC repair, and general maintenance. You help customers with questions about services, pricing estimates, scheduling, and general car advice. Keep answers concise, helpful, and friendly. If asked about exact pricing, give general ranges and suggest calling or booking for an exact quote.";
+var SYSTEM_PROMPT="You are the friendly AI assistant for New Roads Garage, a trusted auto repair shop in Ann Arbor, Michigan. Located at 3170 Packard Rd. Phone: (734) 436-8785. Hours: Mon-Fri 8AM-6PM, Sat 9AM-2PM, closed Sun. Services include oil changes, brake repair, engine diagnostics, tire services, transmission work, AC repair, and general maintenance. You help customers with questions about services, pricing estimates, and general car advice. IMPORTANT: New Roads Garage is a drop-off only shop — we do not offer wait-while-you-watch appointments. Customers drop off their vehicle and we call or text when it is ready. When discussing scheduling, always make clear it is drop-off scheduling only. Keep answers concise, helpful, and friendly. If asked about exact pricing, give general ranges and suggest calling or scheduling a drop-off for an exact quote.";
 
 function toggleChat(){
 var box=document.getElementById('chat-box');
