@@ -12,7 +12,7 @@
   nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(10,10,10,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:68px;}
   .nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
   .logo-icon{width:36px;height:36px;background:var(--gold);border-radius:2px;display:flex;align-items:center;justify-content:center;}
-  .logo-icon svg{width:22px;height:22px;fill:#0A0A0A;}
+  .logo-icon svg{width:22px;height:22px;fill:#0A0A0A;}h
   .logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.2rem;letter-spacing:0.04em;text-transform:uppercase;color:var(--text);line-height:1.1;}
   .logo-sub{font-size:0.58rem;color:var(--muted);letter-spacing:0.12em;display:block;text-transform:uppercase;}
   .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
@@ -406,7 +406,7 @@
 var chatMessages=document.getElementById('chat-messages');
 var chatInput=document.getElementById('chat-input');
 var chatHistory=[];
-var SYSTEM_PROMPT="You are the friendly AI assistant for New Roads Garage, a trusted auto repair shop in Ann Arbor, Michigan. Located at 3170 Packard Rd. Phone: (734) 436-8785. Hours: Mon-Fri 8AM-6PM, Sat 9AM-2PM, closed Sun. Services include oil changes, brake repair, engine diagnostics, tire services, transmission work, AC repair, and general maintenance. You help customers with questions about services, pricing estimates, and general car advice. IMPORTANT: New Roads Garage is a drop-off only shop — we do not offer wait-while-you-watch appointments. Customers drop off their vehicle and we call or text when it is ready. When discussing scheduling, always make clear it is drop-off scheduling only. Keep answers concise, helpful, and friendly. If asked about exact pricing, give general ranges and suggest calling or scheduling a drop-off for an exact quote.";
+var SYSTEM_PROMPT="You are the friendly AI assistant for New Roads Garage, a trusted auto repair shop in Ann Arbor, Michigan. Located at 3170 Packard Rd. Phone: (734) 926-2222. Hours: Mon-Fri 8AM-6PM, Sat 9AM-2PM, closed Sun. Services include oil changes, brake repair, engine diagnostics, tire services, transmission work, AC repair, and general maintenance. You help customers with questions about services, pricing estimates, and general car advice. IMPORTANT: New Roads Garage is a drop-off only shop — we do not offer wait-while-you-watch appointments. Customers drop off their vehicle and we call or text when it is ready. When discussing scheduling, always make clear it is drop-off scheduling only. Keep answers concise, helpful, and friendly. If asked about exact pricing, give general ranges and suggest calling or scheduling a drop-off for an exact quote.";
 
 function toggleChat(){
 var box=document.getElementById('chat-box');
@@ -427,13 +427,13 @@ headers:{'Content-Type':'application/json'},
 body:JSON.stringify({messages:chatHistory,system:SYSTEM_PROMPT})
 }).then(function(res){return res.json();}).then(function(data){
 typing.remove();
-if(data.error){appendMsg('Sorry, something went wrong. Please try again or call us at (734) 436-8785.','bot');return;}
+if(data.error){appendMsg('Sorry, something went wrong. Please try again or call us at (734) 926-2222.','bot');return;}
 var reply=data.content&&data.content[0]?data.content[0].text:'Sorry, I could not generate a response.';
 appendMsg(reply,'bot');
 chatHistory.push({role:'assistant',content:reply});
 }).catch(function(e){
 typing.remove();
-appendMsg('Sorry, something went wrong. Please try again or call us at (734) 436-8785.','bot');
+appendMsg('Sorry, something went wrong. Please try again or call us at (734) 926-2222.','bot');
 });
 }
 
