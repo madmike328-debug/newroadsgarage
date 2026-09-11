@@ -305,14 +305,18 @@
     </div>
     <div class="booking-layout">
       <div>
-        <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div><div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div></div>
-        <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email</label><input type="email" placeholder="john@email.com"></div></div>
-        <div class="form-row"><div class="form-group"><label>Vehicle Year</label><input type="text" placeholder="2019"></div><div class="form-group"><label>Make & Model</label><input type="text" placeholder="Toyota Camry"></div></div>
-        <div class="form-group"><label>Service Needed</label><select><option value="">Select a service...</option><option>Engine Repair</option><option>Brakes & Rotors</option><option>Alignment & Suspension</option><option>Transmission Service</option><option>Free Diagnostics / Check Engine Light</option><option>A/C & Heating</option><option>Oil Change & Maintenance</option><option>Battery & Electrical</option><option>Exhaust & Emissions</option><option>Pre-Purchase Inspection</option><option>Radiator & Cooling</option><option>Other / Not Sure</option></select></div>
-        <div class="form-row"><div class="form-group"><label>Drop-Off Date</label><input type="date" id="b-date"></div><div class="form-group"><label>Drop-Off Time Window</label><select><option value="">Select a window...</option><option>8:00 AM – 9:00 AM</option><option>9:00 AM – 10:00 AM</option><option>10:00 AM – 11:00 AM</option><option>11:00 AM – 12:00 PM</option><option>12:00 PM – 1:00 PM</option><option>1:00 PM – 2:00 PM</option><option>2:00 PM – 3:00 PM</option><option>3:00 PM – 4:00 PM</option><option>4:00 PM – 5:00 PM</option></select></div></div>
-        <div class="form-group"><label>Describe the Issue (Optional)</label><textarea placeholder="Tell us what you're experiencing — noises, warning lights, or concerns..."></textarea></div>
-        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitBooking()">Schedule My Drop-Off →</button>
+        <form name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return handleFormSubmit(event,'booking')">
+        <input type="hidden" name="form-name" value="booking">
+        <p style="position:absolute;left:-9999px;" aria-hidden="true"><label>Leave blank: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" name="first-name" placeholder="John" required></div><div class="form-group"><label>Last Name</label><input type="text" name="last-name" placeholder="Doe" required></div></div>
+        <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="(734) 555-0100" required></div><div class="form-group"><label>Email</label><input type="email" name="email" placeholder="john@email.com" required></div></div>
+        <div class="form-row"><div class="form-group"><label>Vehicle Year</label><input type="text" name="vehicle-year" placeholder="2019"></div><div class="form-group"><label>Make & Model</label><input type="text" name="vehicle-model" placeholder="Toyota Camry"></div></div>
+        <div class="form-group"><label>Service Needed</label><select name="service"><option value="">Select a service...</option><option>Engine Repair</option><option>Brakes & Rotors</option><option>Alignment & Suspension</option><option>Transmission Service</option><option>Free Diagnostics / Check Engine Light</option><option>A/C & Heating</option><option>Oil Change & Maintenance</option><option>Battery & Electrical</option><option>Exhaust & Emissions</option><option>Pre-Purchase Inspection</option><option>Radiator & Cooling</option><option>Other / Not Sure</option></select></div>
+        <div class="form-row"><div class="form-group"><label>Drop-Off Date</label><input type="date" id="b-date" name="drop-off-date"></div><div class="form-group"><label>Drop-Off Time Window</label><select name="time-window"><option value="">Select a window...</option><option>8:00 AM – 9:00 AM</option><option>9:00 AM – 10:00 AM</option><option>10:00 AM – 11:00 AM</option><option>11:00 AM – 12:00 PM</option><option>12:00 PM – 1:00 PM</option><option>1:00 PM – 2:00 PM</option><option>2:00 PM – 3:00 PM</option><option>3:00 PM – 4:00 PM</option><option>4:00 PM – 5:00 PM</option></select></div></div>
+        <div class="form-group"><label>Describe the Issue (Optional)</label><textarea name="issue" placeholder="Tell us what you're experiencing — noises, warning lights, or concerns..."></textarea></div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Schedule My Drop-Off →</button>
         <div class="success-msg" id="booking-success">✓ Drop-off request received! We'll call or text you within one business hour to confirm your drop-off time.</div>
+        </form>
       </div>
       <div class="info-panel">
         <div style="margin-bottom:1.5rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;">New Roads Garage</div><div class="rp-badge" style="margin-top:0;">✓ RepairPal Certified</div></div>
@@ -341,19 +345,39 @@
       </div>
       <div><div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;">
         <h3 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.4rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:1.5rem;">Send Us a Message</h3>
-        <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Doe"></div>
-        <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email</label><input type="email" placeholder="you@email.com"></div></div>
-        <div class="form-group"><label>Message</label><textarea style="min-height:140px;" placeholder="How can we help you?"></textarea></div>
-        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitContact()">Send Message →</button>
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="return handleFormSubmit(event,'contact')">
+        <input type="hidden" name="form-name" value="contact">
+        <p style="position:absolute;left:-9999px;" aria-hidden="true"><label>Leave blank: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form-group"><label>Your Name</label><input type="text" name="name" placeholder="John Doe" required></div>
+        <div class="form-row"><div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="(734) 555-0100"></div><div class="form-group"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div></div>
+        <div class="form-group"><label>Message</label><textarea name="message" style="min-height:140px;" placeholder="How can we help you?" required></textarea></div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Send Message →</button>
         <div class="success-msg" id="contact-success">✓ Message sent! We'll be in touch soon.</div>
+        </form>
       </div></div>
     </div>
   </div>
 </div>
 <script>
   function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));const el=document.getElementById('nav-'+id);if(el)el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
-  function submitBooking(){const s=document.getElementById('booking-success');s.style.display='block';setTimeout(()=>{s.style.display='none';},7000);}
-  function submitContact(){const s=document.getElementById('contact-success');s.style.display='block';setTimeout(()=>{s.style.display='none';},7000);}
+  function handleFormSubmit(e,name){
+    e.preventDefault();
+    const form=e.target;
+    const btn=form.querySelector('button[type="submit"]');
+    const originalText=btn.textContent;
+    btn.disabled=true;btn.textContent='Sending…';
+    const body=new URLSearchParams(new FormData(form)).toString();
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body})
+      .then(()=>{
+        const s=document.getElementById(name+'-success');
+        s.style.display='block';
+        form.reset();
+        setTimeout(()=>{s.style.display='none';},7000);
+      })
+      .catch(()=>{alert("Sorry, something went wrong sending that. Please call us at (734) 926-2222 and we'll get you booked.");})
+      .finally(()=>{btn.disabled=false;btn.textContent=originalText;});
+    return false;
+  }
   const d=document.getElementById('b-date');if(d)d.min=new Date().toISOString().split('T')[0];
 </script>
 </body>
