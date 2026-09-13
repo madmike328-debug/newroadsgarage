@@ -2,7 +2,7 @@
 // Records a thumbs up/down (and optional comment) against an AI interaction
 // that was already logged by photo-diagnosis.js or gemini-integration.js.
 
-const { getStore } = require("@netlify/blobs");
+const { getAnalyticsStore } = require("./lib/analytics-store");
 
 const ALLOWED_ORIGIN = "https://newroadsgarage.com";
 
@@ -46,7 +46,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const store = getStore("nrg-analytics");
+    const store = getAnalyticsStore();
     const existing = await store.get(interactionId, { type: "json" });
 
     if (!existing) {
