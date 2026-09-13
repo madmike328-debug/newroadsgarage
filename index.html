@@ -129,6 +129,7 @@
     <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
     <li><a onclick="showPage('about')" id="nav-about">About</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    <li><a onclick="showPage('diagnose')" id="nav-diagnose">🔎 AI Photo Diagnosis</a></li>
     <li><a onclick="showPage('booking')" class="nav-cta">Schedule Drop-Off</a></li>
   </ul>
 </nav>
@@ -329,6 +330,78 @@
     </div>
   </div>
 </div>
+<div id="page-diagnose" class="page">
+  <style>
+    .diag-layout{display:grid;grid-template-columns:1.1fr 0.9fr;gap:3rem;align-items:start;}
+    @media(max-width:900px){.diag-layout{grid-template-columns:1fr;}}
+    .diag-dropzone{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);padding:2.5rem 1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;}
+    .diag-dropzone:hover,.diag-dropzone.dragover{border-color:var(--gold);background:rgba(232,160,32,0.05);}
+    .diag-dropzone .diag-icon{font-size:2.2rem;margin-bottom:.6rem;}
+    .diag-dropzone p{color:var(--muted);font-size:.9rem;margin:0;}
+    .diag-preview{display:none;margin-top:1.25rem;text-align:center;}
+    .diag-preview img{max-width:100%;max-height:260px;border-radius:var(--radius);border:1px solid var(--border);}
+    .diag-preview .diag-change{display:block;margin-top:.6rem;color:var(--gold);font-size:.85rem;cursor:pointer;text-decoration:underline;}
+    .diag-result{display:none;margin-top:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;}
+    .diag-result.show{display:block;}
+    .diag-result-text{color:var(--text);line-height:1.7;font-size:.95rem;white-space:pre-wrap;}
+    .diag-disclaimer{color:var(--muted);font-size:.78rem;margin-top:1rem;line-height:1.5;border-top:1px solid var(--border);padding-top:1rem;}
+    .diag-feedback{margin-top:1.25rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;}
+    .diag-feedback span{color:var(--muted);font-size:.85rem;}
+    .diag-fb-btn{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);width:38px;height:38px;font-size:1.1rem;cursor:pointer;transition:border-color .2s,transform .15s;}
+    .diag-fb-btn:hover{border-color:var(--gold);transform:translateY(-1px);}
+    .diag-fb-btn.selected{border-color:var(--gold);background:rgba(232,160,32,0.15);}
+    .diag-fb-thanks{color:var(--gold);font-size:.85rem;display:none;}
+    .diag-fb-comment{display:none;margin-top:.75rem;}
+    .diag-fb-comment.show{display:block;}
+    .diag-loading{display:none;color:var(--muted);font-size:.9rem;margin-top:1rem;text-align:center;}
+    .diag-loading.show{display:block;}
+  </style>
+  <div class="section">
+    <div class="section-label">Free AI Photo Diagnosis</div>
+    <h1 class="section-title">Not Sure What's Wrong?<br>Show Us a Photo.</h1>
+    <p class="section-sub">Snap a photo of a warning light, leak, worn tire, or anything else that's got you concerned. Our AI will give you an instant, plain-English read — then we'll confirm it for free when you drop off.</p>
+    <div class="diag-layout">
+      <div>
+        <div class="diag-dropzone" id="diag-dropzone" onclick="document.getElementById('diag-file-input').click()">
+          <div class="diag-icon">📷</div>
+          <p><strong style="color:var(--text);">Click to upload a photo</strong><br>or drag and drop it here</p>
+          <input type="file" id="diag-file-input" accept="image/*" style="display:none;" onchange="diagHandleFile(this.files[0])">
+        </div>
+        <div class="diag-preview" id="diag-preview">
+          <img id="diag-preview-img" alt="Uploaded photo preview">
+          <span class="diag-change" onclick="document.getElementById('diag-file-input').click()">Choose a different photo</span>
+        </div>
+        <div class="form-group" style="margin-top:1.25rem;">
+          <label>What's going on? (Optional)</label>
+          <textarea id="diag-note" placeholder="e.g. This light came on yesterday and the car feels sluggish..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" id="diag-submit" onclick="diagAnalyze()" disabled>Analyze My Photo →</button>
+        <div class="diag-loading" id="diag-loading">🔧 Taking a look at your photo...</div>
+        <div class="diag-result" id="diag-result">
+          <div class="diag-result-text" id="diag-result-text"></div>
+          <div class="diag-feedback">
+            <span>Was this helpful?</span>
+            <button class="diag-fb-btn" id="diag-fb-up" onclick="diagFeedback(1)">👍</button>
+            <button class="diag-fb-btn" id="diag-fb-down" onclick="diagFeedback(-1)">👎</button>
+            <span class="diag-fb-thanks" id="diag-fb-thanks">Thanks for the feedback!</span>
+          </div>
+          <div class="diag-fb-comment" id="diag-fb-comment">
+            <div class="form-group" style="margin-bottom:.5rem;"><textarea id="diag-fb-comment-input" placeholder="Anything you'd add? (optional)" style="min-height:60px;"></textarea></div>
+            <button class="btn-outline" style="padding:.6rem 1.4rem;font-size:.85rem;" onclick="diagSubmitComment()">Send Comment</button>
+          </div>
+          <div class="diag-disclaimer">This is a free preliminary AI read, not a certified diagnosis. For a confirmed answer, schedule a free in-person diagnostic drop-off below.</div>
+          <button class="btn-outline" style="width:100%;justify-content:center;margin-top:1rem;" onclick="showPage('booking')">Schedule a Free Drop-Off Diagnostic →</button>
+        </div>
+      </div>
+      <div class="info-panel">
+        <div style="margin-bottom:1.5rem;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;">How It Works</div></div>
+        <div class="info-item" style="padding-top:0;"><span style="font-size:1.3rem;">1️⃣</span><div><div class="info-label">Upload a Photo</div><div>A dashboard light, a leak under the car, worn tread — whatever's bugging you.</div></div></div>
+        <div class="info-item"><span style="font-size:1.3rem;">2️⃣</span><div><div class="info-label">Get an Instant Read</div><div>Our AI tells you what it likely is and how urgent it is, in plain English.</div></div></div>
+        <div class="info-item"><span style="font-size:1.3rem;">3️⃣</span><div><div class="info-label">Confirm It, Free</div><div>Drop off for a certified, no-cost diagnostic to get the real answer.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="page-contact" class="page">
   <div class="section">
     <div class="section-label">Get In Touch</div>
@@ -380,6 +453,107 @@
   }
   const d=document.getElementById('b-date');if(d)d.min=new Date().toISOString().split('T')[0];
 </script>
+
+<!-- AI Photo Diagnosis -->
+<script>
+var diagFile=null;
+var diagInteractionId=null;
+
+(function(){
+  var zone=document.getElementById('diag-dropzone');
+  if(!zone)return;
+  zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('dragover');});
+  zone.addEventListener('dragleave',function(){zone.classList.remove('dragover');});
+  zone.addEventListener('drop',function(e){
+    e.preventDefault();zone.classList.remove('dragover');
+    if(e.dataTransfer.files&&e.dataTransfer.files[0])diagHandleFile(e.dataTransfer.files[0]);
+  });
+})();
+
+function diagHandleFile(file){
+  if(!file||!file.type.startsWith('image/')){alert('Please upload an image file.');return;}
+  if(file.size>8*1024*1024){alert('That image is a bit large — please upload a photo under 8MB.');return;}
+  diagFile=file;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    document.getElementById('diag-preview-img').src=e.target.result;
+    document.getElementById('diag-preview').style.display='block';
+    document.getElementById('diag-submit').disabled=false;
+  };
+  reader.readAsDataURL(file);
+}
+
+function diagAnalyze(){
+  if(!diagFile)return;
+  var btn=document.getElementById('diag-submit');
+  var loading=document.getElementById('diag-loading');
+  var resultBox=document.getElementById('diag-result');
+  btn.disabled=true;
+  loading.classList.add('show');
+  resultBox.classList.remove('show');
+
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var base64=e.target.result.split(',')[1];
+    fetch('/.netlify/functions/photo-diagnosis',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({imageBase64:base64,mimeType:diagFile.type,note:document.getElementById('diag-note').value})
+    }).then(function(res){return res.json();}).then(function(data){
+      loading.classList.remove('show');
+      btn.disabled=false;
+      if(data.error){
+        document.getElementById('diag-result-text').textContent='Sorry, something went wrong analyzing that photo. Please try again or call us at (734) 926-2222.';
+        resultBox.classList.add('show');
+        return;
+      }
+      diagInteractionId=data.interactionId;
+      document.getElementById('diag-result-text').textContent=data.diagnosis;
+      document.getElementById('diag-fb-up').classList.remove('selected');
+      document.getElementById('diag-fb-down').classList.remove('selected');
+      document.getElementById('diag-fb-thanks').style.display='none';
+      document.getElementById('diag-fb-comment').classList.remove('show');
+      resultBox.classList.add('show');
+      resultBox.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }).catch(function(){
+      loading.classList.remove('show');
+      btn.disabled=false;
+      document.getElementById('diag-result-text').textContent='Sorry, something went wrong analyzing that photo. Please try again or call us at (734) 926-2222.';
+      resultBox.classList.add('show');
+    });
+  };
+  reader.readAsDataURL(diagFile);
+}
+
+function diagFeedback(rating){
+  if(!diagInteractionId)return;
+  document.getElementById('diag-fb-up').classList.toggle('selected',rating===1);
+  document.getElementById('diag-fb-down').classList.toggle('selected',rating===-1);
+  document.getElementById('diag-fb-thanks').style.display='inline';
+  document.getElementById('diag-fb-comment').classList.add('show');
+  fetch('/.netlify/functions/log-feedback',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({interactionId:diagInteractionId,rating:rating})
+  }).catch(function(){});
+}
+
+function diagSubmitComment(){
+  if(!diagInteractionId)return;
+  var input=document.getElementById('diag-fb-comment-input');
+  var comment=input.value.trim();
+  if(!comment)return;
+  var rating=document.getElementById('diag-fb-up').classList.contains('selected')?1:-1;
+  fetch('/.netlify/functions/log-feedback',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({interactionId:diagInteractionId,rating:rating,comment:comment})
+  }).then(function(){
+    input.value='';
+    input.placeholder='Thanks — got it!';
+  }).catch(function(){});
+}
+</script>
 </body>
 </html>
 
@@ -399,6 +573,9 @@
 .chat-msg.user{align-self:flex-end;background:var(--gold,#E8A020);color:#141414;border-bottom-right-radius:4px}
 .chat-msg.bot{align-self:flex-start;background:var(--card,#1A1A1A);border:1px solid var(--border,#272727);border-bottom-left-radius:4px}
 .chat-msg.bot.typing{opacity:.7;font-style:italic}
+.chat-fb{align-self:flex-start;display:flex;gap:6px;margin-top:-6px;margin-bottom:2px;}
+.chat-fb button{background:none;border:1px solid var(--border,#272727);border-radius:8px;width:26px;height:26px;font-size:.8rem;cursor:pointer;line-height:1;}
+.chat-fb button.selected{border-color:var(--gold,#E8A020);background:rgba(232,160,32,0.15);}
 #chat-input-row{display:flex;padding:12px;gap:8px;border-top:1px solid var(--border,#272727)}
 #chat-input{flex:1;padding:10px 14px;border-radius:24px;border:1px solid var(--border,#272727);background:var(--card,#1A1A1A);color:var(--text,#F0EDE6);font-size:.9rem;font-family:'Barlow',sans-serif;outline:none}
 #chat-input:focus{border-color:var(--gold,#E8A020)}
@@ -430,7 +607,7 @@
 var chatMessages=document.getElementById('chat-messages');
 var chatInput=document.getElementById('chat-input');
 var chatHistory=[];
-var SYSTEM_PROMPT="You are the friendly AI assistant for New Roads Garage, a trusted auto repair shop in Ann Arbor, Michigan. Located at 3170 Packard Rd. Phone: (734) 926-2222. Hours: Mon-Fri 8AM-6PM, Sat 9AM-2PM, closed Sun. Services include oil changes, brake repair, engine diagnostics, tire services, transmission work, AC repair, and general maintenance. You help customers with questions about services, pricing estimates, and general car advice. IMPORTANT: New Roads Garage is a drop-off only shop — we do not offer wait-while-you-watch appointments. Customers drop off their vehicle and we call or text when it is ready. When discussing scheduling, always make clear it is drop-off scheduling only. Keep answers concise, helpful, and friendly. If asked about exact pricing, give general ranges and suggest calling or scheduling a drop-off for an exact quote.";
+var SYSTEM_PROMPT="You are the friendly AI assistant for New Roads Garage, a trusted auto repair shop in Ann Arbor, Michigan. Located at 3170 Washtenaw Ave. Phone: (734) 926-2222. Hours: Mon-Fri 8AM-6PM, Sat 9AM-2PM, closed Sun. Services include oil changes, brake repair, engine diagnostics, tire services, transmission work, AC repair, and general maintenance. You help customers with questions about services, pricing estimates, and general car advice. IMPORTANT: New Roads Garage is a drop-off only shop — we do not offer wait-while-you-watch appointments. Customers drop off their vehicle and we call or text when it is ready. When discussing scheduling, always make clear it is drop-off scheduling only. Keep answers concise, helpful, and friendly. If asked about exact pricing, give general ranges and suggest calling or scheduling a drop-off for an exact quote.";
 
 function toggleChat(){
 var box=document.getElementById('chat-box');
@@ -453,7 +630,7 @@ body:JSON.stringify({messages:chatHistory,system:SYSTEM_PROMPT})
 typing.remove();
 if(data.error){appendMsg('Sorry, something went wrong. Please try again or call us at (734) 926-2222.','bot');return;}
 var reply=data.content&&data.content[0]?data.content[0].text:'Sorry, I could not generate a response.';
-appendMsg(reply,'bot');
+appendMsg(reply,'bot',data.interactionId);
 chatHistory.push({role:'assistant',content:reply});
 }).catch(function(e){
 typing.remove();
@@ -461,11 +638,26 @@ appendMsg('Sorry, something went wrong. Please try again or call us at (734) 926
 });
 }
 
-function appendMsg(text,cls){
+function appendMsg(text,cls,interactionId){
 var d=document.createElement('div');
 d.className='chat-msg '+cls;
 d.textContent=text;
 chatMessages.appendChild(d);
+if(interactionId){
+var fb=document.createElement('div');
+fb.className='chat-fb';
+var up=document.createElement('button');up.textContent='👍';
+var down=document.createElement('button');down.textContent='👎';
+function rate(r){
+up.classList.toggle('selected',r===1);
+down.classList.toggle('selected',r===-1);
+fetch('/.netlify/functions/log-feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({interactionId:interactionId,rating:r})}).catch(function(){});
+}
+up.onclick=function(){rate(1);};
+down.onclick=function(){rate(-1);};
+fb.appendChild(up);fb.appendChild(down);
+chatMessages.appendChild(fb);
+}
 chatMessages.scrollTop=chatMessages.scrollHeight;
 return d;
 }
