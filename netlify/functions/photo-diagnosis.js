@@ -4,7 +4,7 @@
 // Gemini 2.0 Flash (multimodal) returns a plain-English read on what it might be.
 // Every request is logged to Netlify Blobs for activity/satisfaction tracking.
 
-const { getStore } = require("@netlify/blobs");
+const { getAnalyticsStore } = require("./lib/analytics-store");
 
 const ALLOWED_ORIGIN = "https://newroadsgarage.com";
 const GEMINI_MODEL = "gemini-2.0-flash";
@@ -159,7 +159,7 @@ exports.handler = async (event) => {
 
 async function logInteraction({ interactionId, note, status, responseLength, errorMessage }) {
   try {
-    const store = getStore("nrg-analytics");
+    const store = getAnalyticsStore();
     const record = {
       id: interactionId,
       tool: "photo_diagnosis",
