@@ -1,7 +1,7 @@
 // netlify/functions/gemini-integration.js// netlify/functions/gemini-integration.js
 // Gemini 2.0 Flash proxy for New Roads Garage AI features (chat advisor)
 
-const { getStore } = require("@netlify/blobs");
+const { getAnalyticsStore } = require("./lib/analytics-store");
 
 const ALLOWED_ORIGIN = "https://newroadsgarage.com";
 const GEMINI_MODEL = "gemini-2.0-flash";
@@ -137,7 +137,7 @@ exports.handler = async (event) => {
 
 async function logInteraction({ interactionId, lastUserMessage, status, responseLength, errorMessage }) {
   try {
-    const store = getStore("nrg-analytics");
+    const store = getAnalyticsStore();
     const record = {
       id: interactionId,
       tool: "chat",
